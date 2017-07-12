@@ -1,0 +1,26 @@
+
+# compiled objects
+*.o
+*.lo
+*.la
+
+memspace/producerconsumer/producer
+memspace/producerconsumer/consumer
+
+# autotools generated files
+Makefile.in
+Makefile
+aclocal.m4
+configure
+config.*
+libtool
+stamp-h1
+
+autom4te.cache/
+m4/
+scripts/
+
+.deps/
+.libs/
+
+.dirstamp
