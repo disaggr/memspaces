@@ -4,6 +4,7 @@
 *.lo
 *.la
 
+memspace/maintenance/destroy
 memspace/producerconsumer/producer
 memspace/producerconsumer/consumer
 
