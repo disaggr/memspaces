@@ -1,3 +1,20 @@
+/******************************************************************************
+ *    memspaces - tuple spaces in shared memory                               *
+ *    Copyright (C) 2017  Andreas Grapentin                                   *
+ *                                                                            *
+ *    This program is free software: you can redistribute it and/or modify    *
+ *    it under the terms of the GNU General Public License as published by    *
+ *    the Free Software Foundation, either version 3 of the License, or       *
+ *    (at your option) any later version.                                     *
+ *                                                                            *
+ *    This program is distributed in the hope that it will be useful,         *
+ *    but WITHOUT ANY WARRANTY; without even the implied warranty of          *
+ *    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the           *
+ *    GNU General Public License for more details.                            *
+ *                                                                            *
+ *    You should have received a copy of the GNU General Public License       *
+ *    along with this program.  If not, see <http://www.gnu.org/licenses/>.   *
+ ******************************************************************************/
 
 #ifdef HAVE_CONFIG_H
 # include <config.h>
@@ -20,7 +37,7 @@
 
 struct _space
 {
-  const char *name;
+  char *name;
   int fd;
   size_t size;
   void *data;
@@ -200,7 +217,8 @@ memspace_close (SPACE *space)
       return -1;
     }
 
-  // free the SPACE pointer and return
+  // free the allocated SPACE memory and return
+  free(space->name);
   free(space);
   return 0;
 }
@@ -208,23 +226,21 @@ memspace_close (SPACE *space)
 int
 memspace_unlink (SPACE *space)
 {
+  // destroy the semaphore
   int res = sem_destroy(space->data);
   if (res)
     return -1;
 
-  res = close(space->fd);
-  if (res)
-    return -1;
-
-  res = munmap(space->data, space->size);
-  if (res)
-    return -1;
-
+  // destroy the shm
   res = shm_unlink(space->name);
   if (res)
     return -1;
 
-  free(space);
+  // close the memspace
+  res = memspace_close(space);
+  if (res)
+    return -1;
+
   return 0;
 }
 

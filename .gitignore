@@ -3,10 +3,9 @@
 *.o
 *.lo
 *.la
-
-memspace/maintenance/destroy
-memspace/producerconsumer/producer
-memspace/producerconsumer/consumer
+*/memspace/maintenance/destroy
+*/memspace/producerconsumer/producer
+*/memspace/producerconsumer/consumer
 
 # autotools generated files
 Makefile.in
@@ -16,12 +15,19 @@ configure
 config.*
 libtool
 stamp-h1
-
 autom4te.cache/
 m4/
 scripts/
-
 .deps/
 .libs/
-
 .dirstamp
+
+# python generated files
+*.pyc
+
+# setup.py generated files
+build/
+dist/
+*.egg-info/
+.eggs/
+.cache/
