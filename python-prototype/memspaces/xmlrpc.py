@@ -39,14 +39,12 @@ class MemSpaceApi(object):
         '''
         put the given tuple into the tuple space.
         '''
-        print(self._tuples)
         self._tuples.append(tpl)
 
     def take(self, tpl):
         '''
         take the queried tuple from the tuple space and return it.
         '''
-        print(self._tuples)
         for i, t in enumerate(self._tuples):
             if len(tpl) == len(t) and all(x == y or x is None for (x, y) in zip(tpl, t)):
                 res = self._tuples[i]
