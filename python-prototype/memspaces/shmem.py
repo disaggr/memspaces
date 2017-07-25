@@ -89,7 +89,7 @@ class MemSpace(object):
                 struct.pack_into('I', self._mmap, 0x10, offset + len(data) + 6)
                 self._lock.release()
 
-            def take(self, tpl):
+            def get(self, tpl):
                 '''
                 take the queried tuple from the tuple space and return it.
                 '''
@@ -131,7 +131,7 @@ class MemSpace(object):
                         return data
                     start += 6 + length
 
-            def peek(self, tpl):
+            def read(self, tpl):
                 '''
                 seek the given tuple in the tuple space and return it.
                 '''

@@ -41,7 +41,7 @@ class MemSpaceApi(object):
         '''
         self._tuples.append(tpl)
 
-    def take(self, tpl):
+    def get(self, tpl):
         '''
         take the queried tuple from the tuple space and return it.
         '''
@@ -52,7 +52,7 @@ class MemSpaceApi(object):
                 return res
         return None
 
-    def peek(self, tpl):
+    def read(self, tpl):
         '''
         seek the given tuple in the tuple space and return it.
         '''
